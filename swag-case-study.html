@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWAG — A Marketing Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRB30Emzq5Jn0GFr1gLtrEMU_b1is4t830mg&s">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f4f0;
+    --cream: #ede9e1;
+    --mid: #888;
+    --accent: #c8b89a;
+    --rule: rgba(255,255,255,0.1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 3rem;
+    mix-blend-mode: difference;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+  .nav-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url('1774377773160_7686.jpg') center/cover no-repeat;
+    filter: brightness(0.28) grayscale(0.3);
+    transform: scale(1.05);
+    animation: heroZoom 18s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom {
+    from { transform: scale(1.05); }
+    to   { transform: scale(1.12); }
+  }
+  .hero-noise {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: rgba(245,244,240,0.55);
+    max-width: 480px;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s forwards;
+  }
+  .hero-rule {
+    position: absolute;
+    bottom: 0; left: 3rem; right: 3rem;
+    height: 1px;
+    background: var(--rule);
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem; right: 3rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mid);
+    writing-mode: vertical-rl;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s forwards;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .scroll-hint::before {
+    content: '';
+    display: block; width: 1px; height: 40px;
+    background: var(--mid);
+    animation: lineGrow 1.2s 1.8s ease forwards;
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+  @keyframes lineGrow { to { transform: scaleY(1); } }
+
+  /* ── SECTION STYLES ── */
+  section { padding: 7rem 3rem; }
+
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 2.5rem;
+  }
+  h2 em { font-style: italic; color: var(--accent); }
+
+  p {
+    color: rgba(245,244,240,0.72);
+    font-size: 0.95rem;
+    max-width: 620px;
+    margin-bottom: 1.4rem;
+  }
+
+  hr.rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+
+  /* ── AUTHOR STRIP ── */
+  .author-strip {
+    display: flex; align-items: center; gap: 2rem;
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .author-line { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); }
+  .author-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); }
+  .author-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  /* ── INTRO ── */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .intro-stat {
+    display: flex; flex-direction: column;
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    gap: 2rem;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); margin-top: 0.3rem; }
+
+  /* ── FULL IMAGE ── */
+  .full-img {
+    width: 100%; height: 65vh;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(0.2) brightness(0.9);
+  }
+  .img-caption {
+    padding: 1rem 3rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* ── BILLBOARD GRID ── */
+  .billboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+  }
+  .billboard-grid img {
+    width: 100%; height: 45vh;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(0.15);
+    transition: filter 0.4s ease;
+  }
+  .billboard-grid img:hover { filter: none; }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    padding: 6rem 3rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .pull-quote::before {
+    content: '"';
+    position: absolute;
+    top: -2rem; left: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 20rem;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+  }
+  blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2.4rem);
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--white);
+    max-width: 800px;
+    position: relative;
+  }
+  blockquote cite {
+    display: block;
+    margin-top: 1.5rem;
+    font-family: 'Instrument Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ── TWO COLUMN TEXT ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .two-col p { max-width: none; }
+
+  /* ── STRATEGY CARDS ── */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    margin-top: 4rem;
+  }
+  .strategy-card {
+    background: var(--black);
+    padding: 2.5rem;
+    transition: background 0.3s;
+  }
+  .strategy-card:hover { background: #111; }
+  .card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+  .card-body {
+    font-size: 0.85rem;
+    color: rgba(245,244,240,0.6);
+    line-height: 1.7;
+    max-width: none;
+    margin: 0;
+  }
+
+  /* ── PRESS SECTION ── */
+  .press-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 1px;
+    background: var(--rule);
+  }
+  .press-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .press-text {
+    background: var(--black);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* ── COACHELLA STRIP ── */
+  .stage-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+  .stage-wrap img {
+    width: 100%; height: 60vh;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.5) grayscale(0.2);
+  }
+  .stage-text {
+    position: absolute;
+    bottom: 3rem; left: 3rem; right: 3rem;
+  }
+  .stage-text h2 { margin-bottom: 0; }
+
+  /* ── OUTCOME / NUMBERS ── */
+  .outcome-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+  }
+  .outcome-cell {
+    background: var(--black);
+    padding: 2.5rem;
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+  .outcome-cell:hover { border-top-color: var(--accent); }
+  .outcome-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+  }
+  .outcome-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 0.5rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 4rem 3rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .footer-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .footer-meta { text-align: right; }
+  .footer-meta p { font-size: 0.65rem; letter-spacing: 0.15em; color: var(--mid); max-width: none; }
+
+  /* ── UTILITY ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 0 1.5rem 3rem; }
+    .intro-grid, .two-col, .strategy-grid, .outcome-row, .press-grid { grid-template-columns: 1fr; }
+    .billboard-grid { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; gap: 2rem; align-items: flex-start; }
+    .footer-meta { text-align: left; }
+    .author-strip { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SIDDHANTA GHOSH</div>
+  <div class="nav-tag">Marketing Case Study — 2026</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">A case study based on Justin Bieber's "SWAG" Album Campaign</div>
+    <h1 class="hero-title">A Marketing<br><em>Masterclass</em><br>in Surprise.</h1>
+    <p class="hero-sub">How a 10-hour notice, global billboards, and radical authenticity rewrote the rules of a pop comeback.</p>
+  </div>
+  <div class="hero-rule"></div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- AUTHOR STRIP -->
+<div class="author-strip fade-in">
+  <div>
+    <div class="author-line">A Case Study by</div>
+    <div class="author-name">Siddhanta Ghosh</div>
+  </div>
+  <div class="author-dot"></div>
+  <div class="author-line">Marketing Strategy &amp; Brand Analysis</div>
+  <div class="author-dot"></div>
+  <div class="author-line">2026</div>
+</div>
+
+<!-- INTRO -->
+<section class="fade-in">
+  <div class="intro-grid">
+    <div>
+      <div class="section-label">01 — Overview</div>
+      <h2>The Comeback<br>Nobody <em>Saw Coming</em></h2>
+      <p>On July 10, 2025, Justin Bieber posted a series of photographs to Instagram. Billboards had appeared overnight in New York, Los Angeles, Atlanta, and Reykjavík. No press release. No lead single campaign. No pre-save link. Just black-and-white images and a single word: SWAG.</p>
+      <p>Fourteen hours later, his seventh studio album was streaming. The music industry hadn't seen a surprise release executed at this scale since Beyoncé's self-titled album in 2013 — but SWAG carried its own entirely distinct logic.</p>
+      <p>This is a case study in how strategic restraint, authentic personal narrative, and precisely timed cultural disruption can engineer one of the most talked-about album rollouts of the decade.</p>
+    </div>
+    <div>
+      <div class="intro-stat">
+        <div class="stat-item">
+          <div class="stat-num">10hrs</div>
+          <div class="stat-label">From announcement to release</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">163K</div>
+          <div class="stat-label">First-week album-equivalent units</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">16</div>
+          <div class="stat-label">Tracks that debuted on Billboard Hot 100</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Grammy nominations at the 68th ceremony</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- BILLBOARD IMAGE FULL -->
+<img src="https://pbs.twimg.com/media/Gvgql6QakAALOXD.jpg" class="full-img" alt="SWAG billboard">
+<div class="img-caption">Campaign billboard — Highway placement, July 10, 2025</div>
+
+<!-- THE STRATEGY -->
+<section class="fade-in">
+  <div class="section-label">02 — The Strategy</div>
+  <h2>Manufactured<br><em>Spontaneity</em></h2>
+  <div class="two-col">
+    <div>
+      <p>The SWAG campaign inverted every conventional playbook. Where modern pop releases rely on a multi-month drip of singles, lyric videos, and algorithmic playlisting, Bieber chose compression. Total surprise. A deliberate refusal to let anticipation become noise.</p>
+      <p>The strategy worked because of who it came from. Four years of silence after 2021's <em>Justice</em> — punctuated only by glimpses of studio sessions and cryptic captions — had created a genuine hunger. Bieber and his team read that energy correctly: more runway would have given critics and fans time to form opinions before a single note was heard.</p>
+    </div>
+    <div>
+      <p>The day began not with music but with SKYLRK, Bieber's new apparel brand. The drop worked as a soft throat-clear, warming the cultural temperature before the main event. By afternoon, billboard photographs began appearing. By midnight, the album was out.</p>
+      <p>The sequencing was meticulous: brand launch → visual teaser → tracklist reveal → release. Each step held just enough information to propel curiosity to the next. The album became a cultural event rather than a product.</p>
+    </div>
+  </div>
+
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <div class="card-num">01</div>
+      <div class="card-title">Radical Compression</div>
+      <p class="card-body">10 hours between announcement and release. No pre-save. No singles. No press tour. The album had to land as an event — compressed urgency replaced manufactured anticipation.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="card-num">02</div>
+      <div class="card-title">Physical-First Teasing</div>
+      <p class="card-body">Global billboards in Reykjavík, New York, Los Angeles, and Atlanta drove earned media before a single digital asset was deployed. Old-world outdoor placement for a new-world moment.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="card-num">03</div>
+      <div class="card-title">Narrative Authenticity</div>
+      <p class="card-body">The campaign imagery — Bieber shirtless, Hailey, son Jack — projected domesticity and vulnerability. No art direction could fake what the photographs communicated: a man changed by fatherhood and faith.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="card-num">04</div>
+      <div class="card-title">Sonic Left Turn</div>
+      <p class="card-body">Abandoning the widescreen pop of Justice for intimate alt-R&B alongside Dijon, Mk.gee, and Carter Lang, Bieber signaled creative autonomy. The sound was the statement.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="card-num">05</div>
+      <div class="card-title">Earned Discourse</div>
+      <p class="card-body">Built-in talking points — Druski comedy skits addressing live Bieber memes — ensured the album generated organic conversation the week of release, without paid media dependency.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="card-num">06</div>
+      <div class="card-title">Brand Integration</div>
+      <p class="card-body">SKYLRK launched the same morning as the album announcement. The apparel line extended the campaign into physical product and created a secondary commercial moment alongside the music.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BILLBOARD GRID -->
+<div class="billboard-grid fade-in">
+  <img src="https://s.yimg.com/ny/api/res/1.2/M0NU0SQcUmRnCzofMr14Lw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04Mjg-/https://media.zenfs.com/en/aol_the_independent_us_877/2fd181d03a012b68216026cb61ce2267" alt="Times Square SWAG Billboard">
+  <img src="https://stupiddope.com/wp-content/uploads/2025/07/Justin-Bieber-Unveils-%E2%80%98SWAG-Tracklist-Ahead-of-Surprise-Album-Drop.jpg" alt="Tracklist Billboard">
+  <img src="https://s.yimg.com/ny/api/res/1.2/pXtaPQ_glS1GpcrmHnPhdQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTk2MDtjZj13ZWJw/https://media.zenfs.com/en/us_magazine_896/5e1ae3d8ce835204e44b9bafd892eb24" alt="Justin and Hailey Campaign Photo">
+</div>
+
+<!-- PULL QUOTE 1 -->
+<div class="pull-quote fade-in">
+  <blockquote>
+    "Bieber has never sounded this wild, this expansive, this connected to something true."
+    <cite>— The New Yorker</cite>
+  </blockquote>
+</div>
+
+<!-- THE CAMPAIGN IMAGERY -->
+<section class="fade-in">
+  <div class="section-label">03 — Visual Identity</div>
+  <h2>Black, White &amp;<br><em>Deliberately Bare</em></h2>
+  <div class="two-col">
+    <div>
+      <p>The visual language of SWAG was as considered as its rollout. Photographer Renell Medrano shot the campaign imagery: monochrome, intimate, unretouched in feel. Bieber tattooed and shirtless, cradling his infant son Jack Blues. Hailey present but peripheral — the family as texture, not marketing asset.</p>
+      <p>The album cover itself carried this minimalism to an extreme: a black field, the word SWAG in custom grey type. No face. No body. The second consecutive Bieber release to foreground absence over image. It was a deliberate withholding — letting the music do the signifying.</p>
+    </div>
+    <div>
+      <p>Billboard placements echoed this restraint. White text on black backgrounds. Serif typefaces that communicated luxury and permanence rather than hype. In Times Square, the 20-song tracklist appeared on a digital screen without explanation or context — the tracklist itself as the event.</p>
+      <p>The campaign operated on a principle that few pop acts dare to trust: that the product is interesting enough to carry its own weight. In 2025, that restraint read as confidence — and confidence read as cool.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ALBUM ART FULL -->
+<div class="stage-wrap fade-in">
+  <img src="https://www.billboard.com/wp-content/uploads/2025/07/Justin-Bieber-Renell-Medrano-2025-press-billboard-1548.jpg?w=942&h=628&crop=1" alt="SWAG Album Art — Justin with son Jack">
+  <div class="stage-text">
+    <div class="section-label">Campaign Imagery — Renell Medrano</div>
+    <h2>Father. Artist.<br><em>Icon Reclaimed.</em></h2>
+  </div>
+</div>
+
+<!-- PRESS SECTION -->
+<section class="fade-in">
+  <div class="section-label">04 — Critical Reception</div>
+  <h2>The Critics<br><em>Noticed</em></h2>
+  <div class="press-grid">
+    <img src="https://i.postimg.cc/cJZ5Wwkg/Screenshot-2026-03-20-145807.png" class="press-img" alt="NYT Review">
+    <div class="press-text">
+      <p style="color:var(--accent); font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1rem;">Critical Response</p>
+      <p>The New York Times awarded SWAG a Critic's Pick, calling it a work that "awakens his old soul" — an album of "dreamy beats and unexpected collaborations" that leans into Bieber's R&B instincts rather than chasing radio formulas.</p>
+      <p>The New Yorker praised its authenticity: "Bieber has never sounded this wild, this expansive, this connected to something true."</p>
+      <p>Metacritic recorded "generally favorable reviews" with a weighted average of 67/100 from 15 critics — Bieber's strongest critical showing since his early career.</p>
+      <p>AllMusic noted the thematic coherence: the album circles "doe-eyed seduction, loyalty, humility, and faith" — a portrait of a man grounded by new responsibilities.</p>
+      <p style="color:var(--mid); font-size:0.75rem; margin-top:2rem; max-width:none;">SWAG charted #1 in nine countries including Austria, Canada, Denmark, and the Netherlands. It launched Bieber's biggest career streaming week — 198.77 million on-demand streams.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE 2 -->
+<div class="pull-quote fade-in">
+  <blockquote>
+    "Too much lead time would have given fans too much opportunity to form conclusions before hearing it. The spontaneous, of-the-moment feel was the point."
+    <cite>— Billboard</cite>
+  </blockquote>
+</div>
+
+<!-- GRAMMYS -->
+<div class="stage-wrap fade-in">
+  <img src="https://consequence.net/wp-content/uploads/2026/02/Justin-Bieber-2026-Grammys.jpg" alt="Justin Bieber at Grammys 2026">
+  <div class="stage-text">
+    <div class="section-label">68th Annual Grammy Awards — February 2026</div>
+    <h2>The Performance<br><em>That Reset Everything</em></h2>
+  </div>
+</div>
+
+<section class="fade-in">
+  <div class="two-col">
+    <div>
+      <p>At the 68th Grammy Awards on February 1, 2026, Bieber performed "Yukon" — a stripped, guitar-led arrangement, deliberately minimal staging, and a wardrobe choice designed to generate conversation. Shorts and socks at the Grammys. It worked.</p>
+      <p>The SWAG album received four Grammy nominations, placing Bieber in both mainstream pop categories and genre-adjacent spaces. The nominations framed the release not as nostalgia but as a genuine artistic statement by a career artist.</p>
+    </div>
+    <div>
+      <p>The Grammys appearance was the campaign's capstone — not its launch. Where most artists build toward awards season as a climax, the SWAG strategy inverted this: release first, build cultural capital, let the institutions follow.</p>
+      <p>The "Yukon" performance became a viral moment precisely because it refused to be spectacular. A single spotlight. A loop pedal. An artist choosing vulnerability over production value at the most watched music telecast of the year.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="fade-in">
+  <div class="section-label">05 — Outcomes</div>
+  <h2>By The<br><em>Numbers</em></h2>
+
+  <div class="outcome-row">
+    <div class="outcome-cell">
+      <div class="outcome-num">#2</div>
+      <div class="outcome-label">Billboard 200 debut</div>
+    </div>
+    <div class="outcome-cell">
+      <div class="outcome-num">198M</div>
+      <div class="outcome-label">First-week streams — biggest career week</div>
+    </div>
+    <div class="outcome-cell">
+      <div class="outcome-num">9</div>
+      <div class="outcome-label">Countries where SWAG hit #1</div>
+    </div>
+    <div class="outcome-cell">
+      <div class="outcome-num">4</div>
+      <div class="outcome-label">Grammy nominations</div>
+    </div>
+  </div>
+  <div class="outcome-row" style="margin-top:1px">
+    <div class="outcome-cell">
+      <div class="outcome-num">16</div>
+      <div class="outcome-label">Simultaneous Hot 100 entries</div>
+    </div>
+    <div class="outcome-cell">
+      <div class="outcome-num">Coachella</div>
+      <div class="outcome-label">2026 headliner — $7-figure deal</div>
+    </div>
+    <div class="outcome-cell">
+      <div class="outcome-num">21</div>
+      <div class="outcome-label">Tracks across the SWAG era</div>
+    </div>
+    <div class="outcome-cell">
+      <div class="outcome-num">SWAG II</div>
+      <div class="outcome-label">Sequel released September 5, 2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section class="fade-in">
+  <div class="section-label">06 — Key Takeaways</div>
+  <h2>What SWAG<br><em>Teaches Us</em></h2>
+  <div class="two-col">
+    <div>
+      <p><strong style="color:var(--white); font-weight:500;">Silence is an asset.</strong> Four years between albums created genuine scarcity. In an era of perpetual content, absence became a marketing tool. The hunger was real — and Bieber let it build.</p>
+      <p><strong style="color:var(--white); font-weight:500;">Compression beats anticipation when the product is confident.</strong> A long buildup invites pre-formed criticism. SWAG forced listeners to experience the music before narratives could harden. The album had to be heard before it could be dismissed.</p>
+      <p><strong style="color:var(--white); font-weight:500;">Physical placement drives digital noise.</strong> In 2025, billboards generated social media. The paradox: old-world media created new-world virality. Earned attention is worth more than paid impressions.</p>
+    </div>
+    <div>
+      <p><strong style="color:var(--white); font-weight:500;">Personal narrative is brand equity.</strong> The campaign's visual heart was not the logo or the tracklist — it was a father holding his son. The personal became aspirational. Vulnerability became a competitive advantage.</p>
+      <p><strong style="color:var(--white); font-weight:500;">Sonic identity signals intent.</strong> Abandoning pop for alt-R&B was a statement about creative control. It told the industry and the audience: Bieber is making records for himself. That authenticity earned critical credibility that years of pop chart dominance had not.</p>
+      <p><strong style="color:var(--white); font-weight:500;">Sequels extend the moment.</strong> SWAG II, released just 56 days later in a contrasting pink palette, extended the campaign's shelf life and captured a secondary news cycle. Two albums gave the era two chapters — and two commercial opportunities.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="fade-in">
+  <div class="footer-title">SWAG</div>
+  <div class="footer-meta">
+    <p>A Case Study by Siddhanta Ghosh</p>
+    <p style="margin-top:0.5rem;">Marketing Strategy &amp; Brand Analysis</p>
+    <p style="margin-top:0.5rem; color:rgba(136,136,136,0.5);">Siddhanta Ghosh · 2026</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll-triggered fade-ins
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
